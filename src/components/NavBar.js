@@ -43,6 +43,22 @@ const Navbar = ({
                     </div>
                 </>
             )}
+            {inGame === true && (
+                <>
+                    <div className="nav-button-container">
+                        <Link style={{ color: "#FFF" }} to="/">
+                        <button className="left-nav-button nav-button">
+                            <span className="nav-button-span">Home</span>
+                            {/* <HomeIcon className="nav-button-icon" /> */}
+                        </button>
+                        </Link>
+                    </div>
+
+                    <div className="nav-container">{pokemonInGame}</div>
+
+                    <div className="nav-button-container nav-button-container-empty"></div>
+                </>
+        )}
         </div>
     )
 };

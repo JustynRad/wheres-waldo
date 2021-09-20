@@ -1,45 +1,294 @@
+:root {
+  --primary: rgb(34, 34, 34);
+  --textPrimary: whitesmoke;
+  --buttonPrimary: rgb(65, 65, 65);
+}
+
+html,
+body {
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  /* background-color: rgb(235, 236, 230); */
+  background-color: rgb(43, 43, 43);
+  margin: 0px;
+  position: relative;
+
+  overflow-x: hidden;
+}
+
+/* navbar */
+.navbar {
+  background-color: var(--primary);
+  justify-content: space-between;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 75px;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  z-index: 10;
+}
+
+.nav-button-container {
+  display: flex;
+  justify-content: center;
+  width: 33vw;
+}
+
+.nav-button {
+  background-color: var(--primary);
+  color: var(--textPrimary);
+  border: none;
+  font-family: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.2em;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: ease-in-out 0.25s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.nav-button:hover {
+  background-color: var(--buttonPrimary);
+}
+
+.nav-button-span {
+  display: block;
+}
+
+.nav-button-icon {
+  display: none !important;
+}
+/* .left-nav-button {
+  left: 10%;
+}
+.right-nav-button {
+  right: 10%;
+} */
+
+.container {
+  margin: 0px 0px 0px 0px;
+}
+.nav-container {
+  background-color: var(--primary);
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link {
+  color: inherit;
+}
+
+.logo {
+  max-height: 30px;
+}
+
+.nav-button-container-empty {
+  display: block;
+}
+
+/* navbar media queries */
+@media only screen and (max-width: 1000px) {
+  .logo {
+    max-width: 30vw;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .logo {
+    max-width: 55vw;
+  }
+  .nav-button-container {
+    width: 20vw;
+  }
+  .nav-button-span {
+    display: none !important;
+  }
+  .nav-button-icon {
+    display: block !important;
+  }
+}
+
+.shade-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* level cards */
 .home {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .home-levels-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 1000px;
-    width: 80vw;
-    margin: 80px auto 30px auto;
-    gap: 0px 20px;
-  }
-  
+  display: flex;
+  justify-content: center;
+}
+
+.home-levels-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1000px;
+  width: 80vw;
+  margin: 80px auto 30px auto;
+  gap: 0px 20px;
+}
+
+.card-level-name {
+  position: absolute;
+  color: var(--textPrimary);
+  font-size: 22px;
+  left: 50%;
+  top: 3%;
+  transform: translate(-50%, 0);
+}
+
+.card-level-container {
+  max-height: 100%;
+  max-width: 200px;
+  margin: 15px auto;
+  position: relative;
+  place-self: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.2s linear;
+}
+.card-level-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.85);
+}
+
+.card-level-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* card level media queries */
+@media only screen and (max-width: 750px) {
   .card-level-name {
-    position: absolute;
-    color: var(--textPrimary);
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .card-level-name {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 570px) {
+  .home-levels-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card-level-name {
     font-size: 22px;
-    left: 50%;
-    top: 3%;
-    transform: translate(-50%, 0);
   }
-  
-  .card-level-container {
-    max-height: 100%;
-    max-width: 200px;
-    margin: 15px auto;
-    position: relative;
-    place-self: center;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: 0.2s linear;
+}
+@media only screen and (max-width: 400px) {
+  .home-levels-container {
+    grid-template-columns: repeat(2, 1fr);
+    width: 86vw;
+    margin: 80px auto 30px auto;
   }
-  .card-level-container:hover {
-    transform: scale(1.03);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.85);
+  .card-level-name {
+    font-size: 20px;
   }
-  
-  .card-level-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    border-radius: 10px;
+}
+
+/* character image */
+
+.character-container {
+  margin: 5px 10px;
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  transition: 0.32s linear;
+  cursor: pointer;
+}
+.character-container:hover {
+  transform: scale(2);
+  height: 8rem;
+  margin: 5px 50px;
+}
+.faded {
+  opacity: 0.3;
+}
+.character-img {
+  max-height: 55px;
+}
+.character-name {
+  text-align: center;
+  margin: 5px;
+  color: var(--textPrimary);
+}
+
+.game-board-image {
+  width: 100%;
+}
+
+/* character images media queries */
+@media only screen and (max-width: 570px) {
+  .character-img {
+    max-height: 45px;
   }
+  .character-name {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .character-img {
+    max-height: 40px;
+  }
+  .character-name {
+    font-size: 13px;
+  }
+  .nav-button-container-empty {
+    display: none;
+  }
+}
+
+/* character dropdown */
+.character-dropdown-menu {
+  width: 14rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  background-color: var(--primary);
+  overflow: auto;
+}
+.character-dropdown-a {
+  color: var(--textPrimary);
+  padding: 0.75rem;
+  display: block;
+  text-decoration: inherit;
+}
+.character-dropdown-div {
+  display: flex;
+  align-items: center;
+}
+.character-dropdown-img {
+  width: 1.5rem;
+  object-fit: contain;
+  margin-right: 0.5rem;
+  height: 1.5rem;
+  max-width: 100%;
+  display: block;
+}
+
+.absolute {
+  position: absolute;
+}
+.hidden {
+  display: none;
+}

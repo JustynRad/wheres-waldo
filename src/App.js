@@ -16,6 +16,9 @@ function App() {
   const [levelData, setLevelData] = useState(pokeLevels);
   const [pokemons, setPokemons] = useState([]);
   const [username, setUsername] = useState("");
+  const handleUpdateUsername = (e) => {
+    setUsername(e.target.value);
+  };
 
   return (
     <Router basename="/lets-find-pokemon">
@@ -28,16 +31,31 @@ function App() {
         inInfo={inInfo}
       />
       <div className="container">
-        <Route exact path="/" component={Home}>
-          <Home
-            setLevel={setLevel}
-            levelData={levelData}
-            setInGame={setInGame}
-            setInLeaderboard={setInLeaderBoard}
-            setInHome={setInHome}
-            setInInfo={setInInfo}
-          />
-        </Route>
+        <Switch>
+          <Route exact path="/" component={Home}>
+            <Home
+              setLevel={setLevel}
+              levelData={levelData}
+              setInGame={setInGame}
+              setInLeaderboard={setInLeaderBoard}
+              setInHome={setInHome}
+              setInInfo={setInInfo}
+            />
+          </Route>
+          <Route exact path="/game" component={Game}>
+              <Game
+                level={level}
+                username={username}
+                updateUsername={handleUpdateUsername}
+                levelData={levelData}
+                pokemons={pokemons}
+                setPokemons={setPokemons}
+                setInLeaderBoard={setInLeaderBoard}
+                setInHome={setInHome}
+                setInInfo={setInInfo}
+              />
+            </Route>
+        </Switch>
       </div>
     </Router>
   );

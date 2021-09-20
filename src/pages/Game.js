@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { firestore } from "../firebase";
+import { collection, addDoc } from "firebase/firestore"; 
 import OutsideClickHandler from "react-outside-click-handler";
 import PokeDropdown from "../components/PokeDropDown";
 import pokeLevels from "../PokeLevels";
@@ -10,7 +12,11 @@ const Game = ({
     updateUsername,
     pokemons,
     setPokemons,
+    setInLeaderBoard,
+    setInHome,
+    setInInfo,
 }) => {
+
     const [gameID, setGameID] = useState(null);
     const [image, setImage] = useState("");
     const [gameOver, setGameOver] = useState(false);
@@ -19,6 +25,10 @@ const Game = ({
     const [showDropdown, setShowDropdown] = useState(false);
     const [startTime, setStartTime] = useState(Date.now());
     const [elapsedSeconds, setElapsedSeconds] = useState(null);
+
+    setInLeaderBoard(false);
+    setInHome(false);
+    setInInfo(false);
 
     useEffect(() => {
         let loadedPokemons = pokeLevels[level].pokemons;
@@ -29,6 +39,37 @@ const Game = ({
     useEffect(() => {
         setGameOver(pokemons?.every((pokemon) => pokemon.found));
     }, [pokemons]);
+
+    useEffect(() => {
+        if (gameOver === true) {
+            let endingTimeStamp = Date.now();
+            let score = (endingTimeStamp - startTime) / 1000;
+            let date = new Date().toString().split(" ").splice(1,3).join(" ");
+            if (score < 0.1) {
+                return;
+            }
+            firestore
+                .collection("games")
+                .add({
+                    startTime: startTime,
+                    endTime: endingTimeStamp,
+                    level,
+                    pokemons: pokemons,
+                    elapsedSeconds: score,
+                    date: date,
+                })
+                .then((docRef) => {
+                    setGameID(docRef.id);
+                    firestore
+                        .collection("games")
+                        .doc(docRef.id)
+                        .onSnapshot((doc) => {
+                            const data = doc.data();
+                            setElapsedSeconds(data?.elapsedSeconds);
+                        });
+                });
+        }
+    }, [gameOver]);
 
     const getLocationImageClick = (e) => {
         const xCoord = Math.round(
@@ -83,12 +124,27 @@ const Game = ({
             const updatedPokemons = pokemons.map((poke) => 
                 poke.name === pokemon ? {...poke, found: true } : poke
             );
-
+            console.log("POKEMON FOUND");
             setPokemons(updatedPokemons);
         }
 
+        firestore.collection("playerSelection").add(levelSelect);
         hideDropdown();
     }
+
+    const submitScore = async () => {
+        const highScoreRef = await firestore.collection("games").doc(gameID).get();
+        const highScoreData = highScoreRef.data();
+        const newHighScore = {
+            gameID,
+            level: highScoreData.level,
+            time: highScoreData.elapsedSeconds,
+            name: username,
+            date: highScoreData.date,
+        };
+        firestore.collection("highscores").add(newHighScore);
+    };
+
     return (
         <div className="game-core">
             <div className="relative">
