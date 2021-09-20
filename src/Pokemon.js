@@ -24,46 +24,60 @@ const Pokemon = (props) => {
     let image = null;
 
     switch (props.name) {
+        //Rock Level
         case "Gengar":
-            image: Gengar;
+            image = Gengar;
             break;
         case "Magnemite":
-            image: Magnemite;
+            image =  Magnemite;
             break;
         case "Growlithe":
-            image: Growlithe;
+            image =  Growlithe;
             break;
+        //Grass Level
         case "Golbat":
-            image: Golbat;
+            image =  Golbat;
             break;
         case "Shellder":
-            image: Shellder;
+            image =  Shellder;
             break;
         case "Magikarp":
-            image: Magikarp;
+            image =  Magikarp;
             break;
+        //Electric Level
         case "Scyther":
-            image: Scyther;
+            image =  Scyther;
             break;
         case "Oddish":
-            image: Oddish;
+            image =  Oddish;
             break;
         case "Dragonair":
-            image: Dragonair;
+            image = Dragonair;
             break;
+        //Fair Level
         case "Pikachu":
-            image: Pikachu;
+            image =  Pikachu;
             break;
         case "Clefairy":
-            image: Clefairy;
+            image =  Clefairy;
             break;
         case "Squirtle":
-            image: Squirtle;
+            image =  Squirtle;
             break;
         default:
             break;
     }
 
+    return (
+        <div className={`pokemon-container`}>
+            <img
+                className={`${props.found} && "faded"} pokemon-img`}
+                src={image}
+                alt={props.name}
+            />
+            <p className="pokemon-name">{props.name}</p>
+        </div>
+    );
 };
 
 export default Pokemon;
